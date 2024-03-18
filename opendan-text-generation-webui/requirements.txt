@@ -1,4 +1,5 @@
-accelerate==0.18.0
+#accelerate==0.18.0
+accelerate
 colorama
 datasets
 flexgen==0.1.7
@@ -14,8 +15,9 @@ rwkv==0.7.3
 safetensors==0.3.1
 sentencepiece
 tqdm
-git+https://github.com/huggingface/peft
+git+https://mirror.ghproxy.com/https://github.com/huggingface/peft
+accelerate==0.21.0
 transformers==4.28.1
 bitsandbytes==0.38.1; platform_system != "Windows"
 llama-cpp-python==0.1.41; platform_system != "Windows"
-https://github.com/abetlen/llama-cpp-python/releases/download/v0.1.41/llama_cpp_python-0.1.41-cp310-cp310-win_amd64.whl; platform_system == "Windows"
+https://mirror.ghproxy.com/https://github.com/abetlen/llama-cpp-python/releases/download/v0.1.41/llama_cpp_python-0.1.41-cp310-cp310-win_amd64.whl; platform_system == "Windows"

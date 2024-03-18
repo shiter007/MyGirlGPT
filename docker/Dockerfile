@@ -22,12 +22,16 @@ RUN apt-get update --yes && \
     ffmpeg\
     openssh-server &&\
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
-RUN /usr/bin/python3 -m pip install --upgrade pip
+RUN /usr/bin/python3 -m pip install --upgrade pip -i https://pypi.mirrors.ustc.edu.cn/simple/
+RUN pip config set global.index-url https://pypi.mirrors.ustc.edu.cn/simple/
+RUN pip config set install.trusted-host pypi.mirrors.ustc.edu.cn
 RUN pip install jupyterlab
 RUN pip install ipywidgets
 
+
+RUN echo "restart..."
 #install opendan-text-generation-webui
-RUN git clone https://github.com/Synthintel0/MyGirlGPT.git &&\
+RUN git clone https://mirror.ghproxy.com/https://github.com/shiter007/MyGirlGPT.git &&\
     cd /MyGirlGPT/opendan-text-generation-webui &&\
     pip install -r requirements.txt &&\
     pip install -r extensions/openai/requirements.txt 
