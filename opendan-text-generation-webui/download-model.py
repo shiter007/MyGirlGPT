@@ -84,7 +84,8 @@ def sanitize_model_and_branch_names(model, branch):
 
 
 def get_download_links_from_huggingface(model, branch, text_only=False):
-    base = "https://huggingface.co"
+    #base = "https://hf-mirror.com"
+    base = "https://hf-mirror.com"
     page = f"/api/models/{model}/tree/{branch}"
     cursor = b""
 
@@ -122,11 +123,11 @@ def get_download_links_from_huggingface(model, branch, text_only=False):
                 if 'lfs' in dict[i]:
                     sha256.append([fname, dict[i]['lfs']['oid']])
                 if is_text:
-                    links.append(f"https://huggingface.co/{model}/resolve/{branch}/{fname}")
+                    links.append(f"https://hf-mirror.com/{model}/resolve/{branch}/{fname}")
                     classifications.append('text')
                     continue
                 if not text_only:
-                    links.append(f"https://huggingface.co/{model}/resolve/{branch}/{fname}")
+                    links.append(f"https://hf-mirror.com/{model}/resolve/{branch}/{fname}")
                     if is_safetensors:
                         has_safetensors = True
                         classifications.append('safetensors')
@@ -199,7 +200,7 @@ def download_model_files(model, branch, links, sha256, output_folder, start_from
     if not output_folder.exists():
         output_folder.mkdir()
     with open(output_folder / 'huggingface-metadata.txt', 'w') as f:
-        f.write(f'url: https://huggingface.co/{model}\n')
+        f.write(f'url: https://hf-mirror.com/{model}\n')
         f.write(f'branch: {branch}\n')
         f.write(f'download date: {str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))}\n')
         sha256_str = ''
