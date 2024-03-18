@@ -49,7 +49,7 @@ RUN apt install -y npm && \
 
 WORKDIR /MyGirlGPT
 
-RUN cd opendan-text-generation-webui && python download-model.py TehVenom/Pygmalion-Vicuna-1.1-7b
+RUN cd opendan-text-generation-webui && HF_ENDPOINT=https://hf-mirror.com python download-model.py TehVenom/Pygmalion-Vicuna-1.1-7b
 ADD install_bark.py .
 RUN python install_bark.py
 RUN python -m nltk.downloader punkt
