@@ -30,6 +30,7 @@ RUN pip install ipywidgets
 
 
 RUN echo "restart..."
+RUN echo "restart again..."
 #install opendan-text-generation-webui
 RUN git clone https://mirror.ghproxy.com/https://github.com/shiter007/MyGirlGPT.git &&\
     cd /MyGirlGPT/opendan-text-generation-webui &&\
@@ -53,8 +54,8 @@ RUN pip install -U huggingface_hub hf_transfer
 #RUN cd opendan-text-generation-webui && HF_ENDPOINT=https://hf-mirror.com python download-model.py TehVenom/Pygmalion-Vicuna-1.1-7b
 RUN cd opendan-text-generation-webui && export HF_ENDPOINT=https://hf-mirror.com && huggingface-cli download --resume-download TehVenom/Pygmalion-Vicuna-1.1-7b --local-dir /MyGirlGPT/opendan-text-generation-webui/models/TehVenom_Pygmalion-Vicuna-1.1-7b
 ADD install_bark.py .
-RUN python install_bark.py
-RUN python -m nltk.downloader punkt
+RUN HF_ENDPOINT=https://hf-mirror.com python install_bark.py
+RUN HF_ENDPOINT=https://hf-mirror.com python -m nltk.downloader punkt
 RUN apt install -y redis
 
 ADD start_opendan_textgen_server.sh /MyGirlGPT/

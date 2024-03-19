@@ -21,7 +21,7 @@ fi
 cd /MyGirlGPT/
 
 if [ ! -z "$LOAD_MODEL" ] && [ "$LOAD_MODEL" != "TehVenom/Pygmalion-Vicuna-1.1-7b" ]; then
-'''    rm -rf /MyGirlGPT/models/TehVenom_Pygmalion-Vicuna-1.1-7b'''
+    #rm -rf /MyGirlGPT/models/TehVenom_Pygmalion-Vicuna-1.1-7b
     python /MyGirlGPT/download-model.py $LOAD_MODEL
 fi
 

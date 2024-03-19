@@ -4,13 +4,15 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y git vim build-essential python3-dev python3-venv && \
     rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/oobabooga/GPTQ-for-LLaMa /build
+RUN git clone https://mirror.ghproxy.com/https://github.com/oobabooga/GPTQ-for-LLaMa /build
 
 WORKDIR /build
 
 RUN python3 -m venv /build/venv
-RUN . /build/venv/bin/activate && \
-    pip3 install --upgrade pip setuptools && \
+RUN . /build/venv/bin/activate
+RUN pip3 config set global.index-url https://pypi.mirrors.ustc.edu.cn/simple/
+RUN pip3 config set install.trusted-host pypi.mirrors.ustc.edu.cn
+RUN pip3 install --upgrade pip setuptools && \
     pip3 install torch torchvision torchaudio && \
     pip3 install -r requirements.txt
 
@@ -22,7 +24,7 @@ RUN . /build/venv/bin/activate && \
 
 FROM nvidia/cuda:11.8.0-runtime-ubuntu22.04
 
-LABEL maintainer="Your Name <your.email@example.com>"
+LABEL maintainer="gohuster<691653133@qq.com>"
 LABEL description="Docker image for GPTQ-for-LLaMa and Text Generation WebUI"
 
 RUN apt-get update && \
@@ -38,8 +40,10 @@ ARG WEBUI_VERSION
 RUN test -n "${WEBUI_VERSION}" && git reset --hard ${WEBUI_VERSION} || echo "Using provided webui source"
 
 RUN virtualenv /app/venv
-RUN . /app/venv/bin/activate && \
-    pip3 install --upgrade pip setuptools && \
+RUN . /app/venv/bin/activate
+RUN pip3 config set global.index-url https://pypi.mirrors.ustc.edu.cn/simple/
+RUN pip3 config set install.trusted-host pypi.mirrors.ustc.edu.cn
+RUN pip3 install --upgrade pip setuptools && \
     pip3 install torch torchvision torchaudio
 
 COPY --from=builder /build /app/repositories/GPTQ-for-LLaMa
